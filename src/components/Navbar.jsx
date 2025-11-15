@@ -42,29 +42,34 @@ export const Navbar = () => {
           </span>
         </a>
 
+        <div className="flex items-center space-x-4">
+          {/* desktop nav */}
+          <div className="hidden md:flex space-x-8">
+            {navItems.map((item, key) => (
+              <a
+                key={key}
+                href={item.href}
+                className="text-foreground/80 hover:text-primary transition-colors duration-300"
+              >
+                {item.name}
+              </a>
+            ))}
+          </div>
 
-        {/* desktop nav */}
-        <div className="hidden md:flex space-x-8">
-          {navItems.map((item, key) => (
-            <a
-              key={key}
-              href={item.href}
-              className="text-foreground/80 hover:text-primary transition-colors duration-300"
-            >
-              {item.name}
-            </a>
-          ))}
+          {/* Theme toggle lives here now (non-fixed) */}
+          <div className="flex items-center">
+            <ThemeToggle className="mr-2" />
+          </div>
+
+          {/* mobile menu button */}
+          <button
+            onClick={() => setIsMenuOpen((prev) => !prev)}
+            className="md:hidden p-2 text-foreground z-50"
+            aria-label={isMenuOpen ? "Close Menu" : "Open Menu"}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />} {" "}
+          </button>
         </div>
-
-        {/* mobile nav */}
-
-        <button
-          onClick={() => setIsMenuOpen((prev) => !prev)}
-          className="md:hidden p-2 text-foreground z-50"
-          aria-label={isMenuOpen ? "Close Menu" : "Open Menu"}
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}{" "}
-        </button>
 
         <div
           className={cn(
@@ -86,7 +91,7 @@ export const Navbar = () => {
                 {item.name}
               </a>
             ))}
-            
+
           </div>
         </div>
       </div>

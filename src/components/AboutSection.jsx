@@ -43,8 +43,10 @@ export const AboutSection = () => {
               >
                 Download CV
               </a>
+              
             </div>
           </div>
+          
 
           <div className="grid grid-cols-1 gap-6">
             <div className="gradient-border p-6 card-hover">

@@ -30,6 +30,88 @@ const projects = [
     demoUrl: "https://garilagbe.netlify.app/",
     githubUrl: "https://github.com/MD-Saadman-Fuad/garilagbe",
   },
+
+  {
+    id: 4,
+    title: "Smart Deals",
+    description:
+      "An oinline marketplace that connects buyers and sellers.",
+    image: "/projects/project4.png",
+    tags: ["HTML", "CSS", "JavaScript", "React", "Express.js", "Node.js", "Tailwind", "MongoDB", "Firebase"],
+    demoUrl: "https://smartdeals-web.netlify.app/",
+    githubUrl: "https://github.com/MD-Saadman-Fuad/Smart-Deals-Client",
+  },
+  {
+    id: 5,
+    title: "Civix",
+    description:
+      "Community-driven clean-up & civic reporting platform.",
+    image: "/projects/project5.png",
+    tags: ["HTML", "CSS", "JavaScript", "React", "Express.js", "Node.js", "Tailwind", "MongoDB", "Firebase"],
+    demoUrl: "https://civix-web.netlify.app/",
+    githubUrl: "https://github.com/MD-Saadman-Fuad/Smart-Deals-Client",
+  },
+  {
+    id: 6,
+    title: "Warm Paws",
+    description:
+      "Vehicle Booking Platform",
+    image: "/projects/project6.png",
+    tags: ["HTML", "CSS", "JavaScript", "React", "Tailwind", "Firebase"],
+    demoUrl: "https://warmpaws-store.netlify.app/",
+    githubUrl: "https://github.com/MD-Saadman-Fuad/WarmPaws",
+  },
+  
+  {
+    id: 7,
+    title: "Serpent Strike",
+    description:
+      "The Reverse Snake Game",
+    image: "/projects/project7.png",
+    tags: ["Python", "Pygame", "Game Development", "OpenGL"],
+    demoUrl: "",
+    githubUrl: "https://github.com/MD-Saadman-Fuad/Serpent-Strike",
+  },
+  {
+    id: 8,
+    title: "Smart Security System",
+    description:
+      "A real-time security system using IOT components",
+    image: "/projects/project8.jpg",
+    tags: ["Arduino", "C++", "Biometric", "RFID", "IOT"],
+    demoUrl: "https://youtu.be/_uNRfn5VH9E?si=QgqO5gBS085Vd733",
+    githubUrl: "https://github.com/MD-Saadman-Fuad/Security-System-using-Arduinos",
+  },
+  {
+    id: 9,
+    title: "Boi Poka",
+    description:
+      "Online Bookstore for Book Lovers",
+    image: "/projects/project9.png",
+    tags: ["HTML", "CSS", "JavaScript", "React", "Tailwind"],
+    demoUrl: "https://boipoka-store.netlify.app/",
+    githubUrl: "https://github.com/MD-Saadman-Fuad/PH-MERN-stack/tree/main/Milestone%208/Module%2045/BoiPoka",
+  },
+  {
+    id: 10,
+    title: "Hero Playstore",
+    description:
+      "Online App Store for Mobile Applications",
+    image: "/projects/project10.png",
+    tags: ["HTML", "CSS", "JavaScript", "React", "Tailwind"],
+    demoUrl: "https://hero-playstore.netlify.app/",
+    githubUrl: "https://github.com/MD-Saadman-Fuad/Hero-Apps",
+  },
+  {
+    id: 11,
+    title: "Dragon News Portal",
+    description:
+      "Online App Store for Mobile Applications",
+    image: "/projects/project11.png",
+    tags: ["HTML", "CSS", "JavaScript", "React", "Tailwind", "Firebase"],
+    demoUrl: "https://dragon-news-portal-live.web.app",
+    githubUrl: "https://github.com/MD-Saadman-Fuad/Dragon-News-Portal",
+  },
 ];
 
 export const ProjectsSection = () => {

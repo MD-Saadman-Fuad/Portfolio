@@ -22,7 +22,7 @@ export const HeroSection = () => {
           </h1>
 
           <p className="text-lg md:text-xl text-muted-foreground max-2-2xl mx-auto opacity-0 animate-fade-in-delay-3">
-            I am a Final Year Computer Science Student at <span className="text-primary font-medium"> BRAC University</span> with a passion for crafting elegant and efficient code. Specializing in full-stack web development, I love turning complex problems into simple, beautiful, and intuitive designs.
+            I am a Final Year Computer Science Student at <span className="text-primary font-medium"> BRAC University</span> with a passion for crafting elegant and efficient code. Specializing in Full-stack web development, I love turning complex problems into simple, beautiful, and intuitive designs.
           </p>
 
           <div className="pt-4 opacity-0 animate-fade-in-delay-4">

@@ -61,7 +61,7 @@ const projects = [
     demoUrl: "https://warmpaws-store.netlify.app/",
     githubUrl: "https://github.com/MD-Saadman-Fuad/WarmPaws",
   },
-  
+
   {
     id: 7,
     title: "Serpent Strike",
@@ -112,6 +112,17 @@ const projects = [
     demoUrl: "https://dragon-news-portal-live.web.app",
     githubUrl: "https://github.com/MD-Saadman-Fuad/Dragon-News-Portal",
   },
+  {
+    id: 12,
+    title: "Javascript Mini Projects",
+    description:
+      "A collection of 13 interactive JavaScript projects including dice rollers, games, calculators, weather app, and utility tools showcasing modern web development techniques and API integrations.",
+    image: "/projects/project12.png",
+    tags: ["HTML", "CSS", "JavaScript", "Dom Manipulation", "APIs"],
+    demoUrl: "https://javascript-mini-projects-webapp.netlify.app/",
+    githubUrl: "https://github.com/MD-Saadman-Fuad/JavaScript-Mini-Projects",
+  },
+
 ];
 
 export const ProjectsSection = () => {

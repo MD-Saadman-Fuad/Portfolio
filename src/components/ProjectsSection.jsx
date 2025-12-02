@@ -7,7 +7,7 @@ const projects = [
     description: "A Community Web App for Local People’s Day-to-Day Needs.",
     image: "/projects/project1.png",
     tags: ["JavaScript", "Express.js", "React.js", "Tailwind", "Node.js", "MongoDB", "Mongoose"],
-    demoUrl: "https://jibonjatra-web.onrender.com/",
+    demoUrl: "https://jibonjatra-web.vercel.app/",
     githubUrl: "https://github.com/MD-Saadman-Fuad/JibonJatra",
   },
   {
@@ -49,7 +49,7 @@ const projects = [
     image: "/projects/project5.png",
     tags: ["HTML", "CSS", "JavaScript", "React", "Express.js", "Node.js", "Tailwind", "MongoDB", "Firebase"],
     demoUrl: "https://civix-web.netlify.app/",
-    githubUrl: "https://github.com/MD-Saadman-Fuad/Smart-Deals-Client",
+    githubUrl: "https://github.com/MD-Saadman-Fuad/Civix-Client",
   },
   {
     id: 6,
@@ -106,7 +106,7 @@ const projects = [
     id: 11,
     title: "Dragon News Portal",
     description:
-      "Online App Store for Mobile Applications",
+      "Online News Portal for Latest News Updates",
     image: "/projects/project11.png",
     tags: ["HTML", "CSS", "JavaScript", "React", "Tailwind", "Firebase"],
     demoUrl: "https://dragon-news-portal-live.web.app",

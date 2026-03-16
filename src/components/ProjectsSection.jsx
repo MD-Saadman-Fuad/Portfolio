@@ -11,6 +11,15 @@ const projects = [
     githubUrl: "https://github.com/MD-Saadman-Fuad/JibonJatra",
   },
   {
+    id: 202,
+    title: "ZapShift",
+    description: "ZapShift is a role-based courier and parcel management platform. ",
+    image: "/projects/project202.png",
+    tags: ["JavaScript", "Express.js", "React.js", "Tailwind", "Node.js", "MongoDB"],
+    demoUrl: "https://zap-shift-web.vercel.app/",
+    githubUrl: "https://github.com/MD-Saadman-Fuad/ZapShift",
+  },
+  {
     id: 2,
     title: "Ki Khabo",
     description:
@@ -19,6 +28,16 @@ const projects = [
     tags: ["HTML", "CSS", "Tailwind", "PHP", "JavaScript", "MySQL"],
     demoUrl: "https://ki-khabo.hstn.me",
     githubUrl: "https://github.com/MD-Saadman-Fuad/ki-khaboV2",
+  },
+  {
+    id: 201,
+    title: "Garmentix",
+    description:
+      "Online Garments Platform",
+    image: "/projects/project201.png",
+    tags: ["HTML", "CSS", "JavaScript", "React", "Express.js", "Node.js", "Tailwind", "MongoDB", "Firebase"],
+    demoUrl: "https://garmentix.netlify.app",
+    githubUrl: "https://github.com/MD-Saadman-Fuad/Garmentix-client",
   },
   {
     id: 3,
@@ -35,7 +54,7 @@ const projects = [
     id: 4,
     title: "Smart Deals",
     description:
-      "An oinline marketplace that connects buyers and sellers.",
+      "An online marketplace that connects buyers and sellers.",
     image: "/projects/project4.png",
     tags: ["HTML", "CSS", "JavaScript", "React", "Express.js", "Node.js", "Tailwind", "MongoDB", "Firebase"],
     demoUrl: "https://smartdeals-web.netlify.app/",
@@ -55,7 +74,7 @@ const projects = [
     id: 6,
     title: "Warm Paws",
     description:
-      "Vehicle Booking Platform",
+      "Pet Service And  Pet Store Website",
     image: "/projects/project6.png",
     tags: ["HTML", "CSS", "JavaScript", "React", "Tailwind", "Firebase"],
     demoUrl: "https://warmpaws-store.netlify.app/",

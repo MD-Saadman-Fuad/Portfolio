@@ -1,59 +1,28 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import Marquee from "react-fast-marquee";
-import Python from "../assets/techlog/python.png";
-import CSS from "../assets/techlog/css.png";
-import C from "../assets/techlog/c.png";
-import CPP from "../assets/techlog/cpp.png";
-import Figma from "../assets/techlog/figma.png";
-import Git from "../assets/techlog/git.png";
-import HTML from "../assets/techlog/html.png";
-import JS from "../assets/techlog/js.png";
-import MySQL from "../assets/techlog/mysql.png";
-import NodeJS from "../assets/techlog/node.png";
-import ReactLogo from "../assets/techlog/react.png";
-import Tailwind from "../assets/techlog/tailwind.png";
-import Firebase from "../assets/techlog/firebase.png";
-import GitHub from "../assets/techlog/github.png";
-import Express from "../assets/techlog/express.png";
-import MongoDB from "../assets/techlog/mongodb.png";
+import { usePortfolio } from "../context/PortfolioContext";
 
-const skills = [
-  // Frontend
-  { name: "HTML", image: HTML, level: 95, category: "frontend" },
-  { name: "CSS", image: CSS, level: 95, category: "frontend" },
-  { name: "JavaScript", image: JS, level: 90, category: "frontend" },
-  { name: "React", image: ReactLogo, level: 90, category: "frontend" },
-  { name: "Tailwind CSS", image: Tailwind, level: 90, category: "frontend" },
-
-
-  // Backend
-  { name: "Node.js", image: NodeJS, level: 80, category: "backend" },
-  { name: "Express.js", image: Express, level: 75, category: "backend" },
-  { name: "MongoDB", image: MongoDB, level: 70, category: "backend" },
-  { name: "MySQL", image: MySQL, level: 90, category: "backend" },
-  { name: "Python", image: Python, level: 85, category: "backend" },
-  { name: "C", image: C, level: 85, category: "backend" },
-  { name: "C++", image: CPP, level: 85, category: "backend" },
-
-
-  // Tools
-  { name: "Git", image: Git, level: 90, category: "tools" },
-  { name: "GitHub", image: GitHub, level: 90, category: "tools" },
-  { name: "Figma", image: Figma, level: 85, category: "tools" },
-  // { name: "VS Code", image: VSCode, level: 95, category: "tools" },
-  { name: "Firebase", image: Firebase, level: 80, category: "tools" },
-];
-
-const categories = ["all", "frontend", "backend", "tools"];
+const categories = ["all", "frontend", "backend", "database", "tools"];
 
 export const SkillsSection = () => {
+  const { skills, API_BASE_URL } = usePortfolio();
   const [activeCategory, setActiveCategory] = useState("all");
-  const imagesMap = [Python, Figma, Git, GitHub, HTML, CSS, JS, MySQL, NodeJS, ReactLogo, Tailwind, Express, MongoDB, Firebase];
 
-  const filteredSkills = skills.filter(
+  const getSkillImage = (image) => {
+    if (!image) return "";
+    if (typeof image === "object" && image.default) return image.default;
+    if (image.startsWith("http://") || image.startsWith("https://")) return image;
+    if (image.startsWith("/uploads/")) return `${API_BASE_URL.replace("/api", "")}${image}`;
+    return image;
+  };
+
+  const sortedSkills = [...skills].sort((a, b) => (a.order || 0) - (b.order || 0));
+
+  const filteredSkills = sortedSkills.filter(
     (skill) => activeCategory === "all" || skill.category === activeCategory
   );
+
   return (
     <section id="skills" data-aos="fade-up" className="py-24 px-4 relative bg-secondary/30">
       <div className="container mx-auto max-w-5xl">
@@ -61,31 +30,23 @@ export const SkillsSection = () => {
           My <span className="text-primary"> Skills</span>
         </h2>
 
-        <Marquee className="mb-10" gradient={false} speed={80}>
-          {imagesMap.map((image, key) => (
-            <div key={key} className="flex items-center space-x-2 mr-15">
-              {/* <span className="font-semibold">{skills[key].name}</span> */}
-              <img src={image} alt={skills[key].name} className="w-15 h-15" />
-            </div>
-          ))}
-        </Marquee>
-
-        {/* <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {categories.map((category, key) => (
-            <button
-              key={key}
-              onClick={() => setActiveCategory(category)}
-              className={cn(
-                "px-5 py-2 rounded-full transition-colors duration-300 capitalize",
-                activeCategory === category
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary/70 text-foreground hover:bg-secondary"
-              )}
-            >
-              {category}
-            </button>
-          ))}
-        </div> */}
+        {sortedSkills && sortedSkills.length > 0 && (
+          <Marquee className="mb-10" gradient={false} speed={80}>
+            {sortedSkills.map((skill, key) => (
+              <div key={skill.id || key} className="flex items-center space-x-2 mr-12">
+                <img
+                  src={getSkillImage(skill.image)}
+                  alt={skill.name}
+                  className="w-12 h-12 object-contain"
+                  onError={(e) => {
+                    e.target.style.display = "none";
+                  }}
+                />
+                <span className="font-semibold text-sm text-foreground/80">{skill.name}</span>
+              </div>
+            ))}
+          </Marquee>
+        )}
 
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           {categories.map((category, key) => (
@@ -93,10 +54,10 @@ export const SkillsSection = () => {
               key={key}
               onClick={() => setActiveCategory(category)}
               className={cn(
-                "px-5 py-2 rounded-full transition-colors duration-300 capitalize",
+                "px-5 py-2 rounded-full transition-colors duration-300 capitalize text-sm font-medium cursor-pointer",
                 activeCategory === category
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary/70 text-forefround hover:bd-secondary"
+                  ? "bg-primary text-primary-foreground shadow-md"
+                  : "bg-secondary/70 text-foreground hover:bg-secondary"
               )}
             >
               {category}
@@ -104,17 +65,21 @@ export const SkillsSection = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredSkills.map((skill, key) => (
             <div
-              key={key}
-              className="bg-card p-6 rounded-lg shadow-xs card-hover text-center"
+              key={skill.id || key}
+              className="bg-card p-6 rounded-lg shadow-xs card-hover text-center flex flex-col items-center justify-center space-y-3 relative"
             >
-              <img src={skill.image} alt={skill.name} className="w-15 h-15 mx-auto flex items-center justify-center mb-5" />
-              <div className="text-center ">
-                <h3 className="font-semibold text-lg"> {skill.name}</h3>
-              </div>
-
+              <img
+                src={getSkillImage(skill.image)}
+                alt={skill.name}
+                className="w-14 h-14 object-contain mx-auto"
+                onError={(e) => {
+                  e.target.style.display = "none";
+                }}
+              />
+              <h3 className="font-semibold text-base">{skill.name}</h3>
             </div>
           ))}
         </div>

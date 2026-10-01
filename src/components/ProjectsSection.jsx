@@ -1,155 +1,13 @@
 import { ArrowRight, ExternalLink, Github } from "lucide-react";
-
-const projects = [
-  {
-    id: 1,
-    title: "Jibonjatra",
-    description: "A Community Web App for Local People’s Day-to-Day Needs.",
-    image: "/projects/project1.png",
-    tags: ["JavaScript", "Express.js", "React.js", "Tailwind", "Node.js", "MongoDB", "Mongoose"],
-    demoUrl: "https://jibonjatra-web.vercel.app/",
-    githubUrl: "https://github.com/MD-Saadman-Fuad/JibonJatra",
-  },
-  {
-    id: 202,
-    title: "ZapShift",
-    description: "ZapShift is a role-based courier and parcel management platform. ",
-    image: "/projects/project202.png",
-    tags: ["JavaScript", "Express.js", "React.js", "Tailwind", "Node.js", "MongoDB"],
-    demoUrl: "https://zap-shift-web.vercel.app/",
-    githubUrl: "https://github.com/MD-Saadman-Fuad/ZapShift",
-  },
-  {
-    id: 2,
-    title: "Ki Khabo",
-    description:
-      "Online Food Ordering Platform",
-    image: "/projects/project2.png",
-    tags: ["HTML", "CSS", "Tailwind", "PHP", "JavaScript", "MySQL"],
-    demoUrl: "https://ki-khabo.hstn.me",
-    githubUrl: "https://github.com/MD-Saadman-Fuad/ki-khaboV2",
-  },
-  {
-    id: 201,
-    title: "Garmentix",
-    description:
-      "Online Garments Platform",
-    image: "/projects/project201.png",
-    tags: ["HTML", "CSS", "JavaScript", "React", "Express.js", "Node.js", "Tailwind", "MongoDB", "Firebase"],
-    demoUrl: "https://garmentix.netlify.app",
-    githubUrl: "https://github.com/MD-Saadman-Fuad/Garmentix-client",
-  },
-  {
-    id: 3,
-    title: "Gari Lagbe",
-    description:
-      "Vehicle Booking Platform",
-    image: "/projects/project3.png",
-    tags: ["HTML", "CSS", "JavaScript", "React", "Tailwind", "MySQL"],
-    demoUrl: "https://garilagbe.netlify.app/",
-    githubUrl: "https://github.com/MD-Saadman-Fuad/garilagbe",
-  },
-
-  {
-    id: 4,
-    title: "Smart Deals",
-    description:
-      "An online marketplace that connects buyers and sellers.",
-    image: "/projects/project4.png",
-    tags: ["HTML", "CSS", "JavaScript", "React", "Express.js", "Node.js", "Tailwind", "MongoDB", "Firebase"],
-    demoUrl: "https://smartdeals-web.netlify.app/",
-    githubUrl: "https://github.com/MD-Saadman-Fuad/Smart-Deals-Client",
-  },
-  {
-    id: 5,
-    title: "Civix",
-    description:
-      "Community-driven clean-up & civic reporting platform.",
-    image: "/projects/project5.png",
-    tags: ["HTML", "CSS", "JavaScript", "React", "Express.js", "Node.js", "Tailwind", "MongoDB", "Firebase"],
-    demoUrl: "https://civix-web.netlify.app/",
-    githubUrl: "https://github.com/MD-Saadman-Fuad/Civix-Client",
-  },
-  {
-    id: 6,
-    title: "Warm Paws",
-    description:
-      "Pet Service And  Pet Store Website",
-    image: "/projects/project6.png",
-    tags: ["HTML", "CSS", "JavaScript", "React", "Tailwind", "Firebase"],
-    demoUrl: "https://warmpaws-store.netlify.app/",
-    githubUrl: "https://github.com/MD-Saadman-Fuad/WarmPaws",
-  },
-
-  {
-    id: 7,
-    title: "Serpent Strike",
-    description:
-      "The Reverse Snake Game",
-    image: "/projects/project7.png",
-    tags: ["Python", "Pygame", "Game Development", "OpenGL"],
-    demoUrl: "",
-    githubUrl: "https://github.com/MD-Saadman-Fuad/Serpent-Strike",
-  },
-  {
-    id: 8,
-    title: "Smart Security System",
-    description:
-      "A real-time security system using IOT components",
-    image: "/projects/project8.jpg",
-    tags: ["Arduino", "C++", "Biometric", "RFID", "IOT"],
-    demoUrl: "https://youtu.be/_uNRfn5VH9E?si=QgqO5gBS085Vd733",
-    githubUrl: "https://github.com/MD-Saadman-Fuad/Security-System-using-Arduinos",
-  },
-  {
-    id: 9,
-    title: "Boi Poka",
-    description:
-      "Online Bookstore for Book Lovers",
-    image: "/projects/project9.png",
-    tags: ["HTML", "CSS", "JavaScript", "React", "Tailwind"],
-    demoUrl: "https://boipoka-store.netlify.app/",
-    githubUrl: "https://github.com/MD-Saadman-Fuad/PH-MERN-stack/tree/main/Milestone%208/Module%2045/BoiPoka",
-  },
-  {
-    id: 10,
-    title: "Hero Playstore",
-    description:
-      "Online App Store for Mobile Applications",
-    image: "/projects/project10.png",
-    tags: ["HTML", "CSS", "JavaScript", "React", "Tailwind"],
-    demoUrl: "https://hero-playstore.netlify.app/",
-    githubUrl: "https://github.com/MD-Saadman-Fuad/Hero-Apps",
-  },
-  {
-    id: 11,
-    title: "Dragon News Portal",
-    description:
-      "Online News Portal for Latest News Updates",
-    image: "/projects/project11.png",
-    tags: ["HTML", "CSS", "JavaScript", "React", "Tailwind", "Firebase"],
-    demoUrl: "https://dragon-news-portal-live.web.app",
-    githubUrl: "https://github.com/MD-Saadman-Fuad/Dragon-News-Portal",
-  },
-  {
-    id: 12,
-    title: "Javascript Mini Projects",
-    description:
-      "A collection of 13 interactive JavaScript projects including dice rollers, games, calculators, weather app, and utility tools showcasing modern web development techniques and API integrations.",
-    image: "/projects/project12.png",
-    tags: ["HTML", "CSS", "JavaScript", "Dom Manipulation", "APIs"],
-    demoUrl: "https://javascript-mini-projects-webapp.netlify.app/",
-    githubUrl: "https://github.com/MD-Saadman-Fuad/JavaScript-Mini-Projects",
-  },
-
-];
+import { usePortfolio } from "../context/PortfolioContext";
 
 export const ProjectsSection = () => {
+  const { projects, profile } = usePortfolio();
+
   return (
     <section id="projects" data-aos="fade-up" className="py-24 px-4 relative">
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          {" "}
           Featured <span className="text-primary"> Projects </span>
         </h2>
 
@@ -161,47 +19,72 @@ export const ProjectsSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, key) => (
             <div
-              key={key}
-              className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover"
+              key={project.id || key}
+              className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover flex flex-col justify-between"
             >
-              <div className="h-48 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-
-              <div className="p-6">
-                <div className="flex flex-wrap gap-2 mb-4 ">
-                  {project.tags.map((tag, i) => (
-                    <span key={i} className="px-2 py-1 text-xs font-medium border rounded-full bg-secondary text-secondary-foreground">
-                      {tag}
-                    </span>
-                  ))}
+              <div>
+                <div className="h-48 overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
                 </div>
 
-                <h3 className="text-xl font-semibold mb-1 h-full mt-auto"> {project.title}</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  {project.description}
-                </p>
-                <div className="flex justify-between items-center">
-                  <div className="flex space-x-3">
+                <div className="p-6">
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {Array.isArray(project.tags)
+                      ? project.tags.map((tag, i) => (
+                          <span
+                            key={i}
+                            className="px-2 py-1 text-xs font-medium border rounded-full bg-secondary text-secondary-foreground"
+                          >
+                            {tag}
+                          </span>
+                        ))
+                      : typeof project.tags === "string"
+                      ? project.tags.split(",").map((tag, i) => (
+                          <span
+                            key={i}
+                            className="px-2 py-1 text-xs font-medium border rounded-full bg-secondary text-secondary-foreground"
+                          >
+                            {tag.trim()}
+                          </span>
+                        ))
+                      : null}
+                  </div>
+
+                  <h3 className="text-xl font-semibold mb-2"> {project.title}</h3>
+                  <p className="text-muted-foreground text-sm mb-4">
+                    {project.description}
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-6 pt-0 mt-auto flex justify-between items-center">
+                <div className="flex space-x-3">
+                  {project.demoUrl && (
                     <a
                       href={project.demoUrl}
                       target="_blank"
+                      rel="noreferrer"
                       className="text-foreground/80 hover:text-primary transition-colors duration-300"
+                      title="Live Demo"
                     >
                       <ExternalLink size={20} />
                     </a>
+                  )}
+                  {project.githubUrl && (
                     <a
                       href={project.githubUrl}
                       target="_blank"
+                      rel="noreferrer"
                       className="text-foreground/80 hover:text-primary transition-colors duration-300"
+                      title="GitHub Repository"
                     >
                       <Github size={20} />
                     </a>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -212,7 +95,8 @@ export const ProjectsSection = () => {
           <a
             className="cosmic-button w-fit flex items-center mx-auto gap-2"
             target="_blank"
-            href="https://github.com/MD-Saadman-Fuad"
+            rel="noreferrer"
+            href={profile.githubUrl || "https://github.com/MD-Saadman-Fuad"}
           >
             Check My Github <ArrowRight size={16} />
           </a>

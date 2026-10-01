@@ -1,6 +1,9 @@
 import { ArrowDown } from "lucide-react";
+import { usePortfolio } from "../context/PortfolioContext";
 
 export const HeroSection = () => {
+  const { profile } = usePortfolio();
+
   return (
     <section
       id="hero"
@@ -13,16 +16,16 @@ export const HeroSection = () => {
             <span className="opacity-0 animate-fade-in"> Hi, I&apos;m</span>
             <span className="text-gradient opacity-0 animate-fade-in-delay-1">
               {" "}
-              Saadman
+              {profile.name ? profile.name.split(" ")[0] : "Saadman"}
             </span>
             <span className="text-primary ml-2 opacity-0 animate-fade-in-delay-2">
               {" "}
-              Fuad
+              {profile.name ? profile.name.split(" ").slice(1).join(" ") : "Fuad"}
             </span>
           </h1>
 
-          <p className="text-lg md:text-xl text-muted-foreground max-2-2xl mx-auto opacity-0 animate-fade-in-delay-3">
-            I am a Final Year Computer Science Student at <span className="text-primary font-medium"> BRAC University</span> with a passion for crafting elegant and efficient code. Specializing in Full-stack web development, I love turning complex problems into simple, beautiful, and intuitive designs.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto opacity-0 animate-fade-in-delay-3">
+            {profile.tagline}
           </p>
 
           <div className="pt-4 opacity-0 animate-fade-in-delay-4">

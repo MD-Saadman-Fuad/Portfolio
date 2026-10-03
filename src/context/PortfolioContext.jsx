@@ -1,12 +1,34 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { defaultProfile, defaultProjects, defaultSkills, defaultExperiences, defaultEducation } from "../data/defaultData";
+import { defaultProfile, defaultProjects, defaultSkills, defaultExperiences, defaultEducation, defaultAboutHighlights } from "../data/defaultData";
 
 const PortfolioContext = createContext();
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+let rawApiUrl = import.meta.env.VITE_API_URL || "https://portfolio-backend-qo0u.onrender.com/api";
+if (!rawApiUrl || rawApiUrl.includes("your-portfolio-backend.onrender.com")) {
+  rawApiUrl = "https://portfolio-backend-qo0u.onrender.com/api";
+}
+const API_BASE_URL = rawApiUrl.replace(/\/+$/, "");
+
+// Helper for fetch with timeout (e.g. 5000ms abort for sleeping backends)
+const fetchWithTimeout = async (url, timeoutMs = 5000) => {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeoutId);
+    if (res.ok) {
+      return await res.json();
+    }
+    return null;
+  } catch (err) {
+    clearTimeout(timeoutId);
+    return null;
+  }
+};
 
 export const PortfolioProvider = ({ children }) => {
   const [profile, setProfile] = useState(defaultProfile);
+  const [aboutHighlights, setAboutHighlights] = useState(defaultAboutHighlights);
   const [projects, setProjects] = useState(defaultProjects);
   const [skills, setSkills] = useState(defaultSkills);
   const [experiences, setExperiences] = useState(defaultExperiences);
@@ -16,55 +38,43 @@ export const PortfolioProvider = ({ children }) => {
 
   const fetchPortfolioData = async () => {
     try {
-      // Fetch Profile
-      const profileRes = await fetch(`${API_BASE_URL}/profile`).catch(() => null);
-      if (profileRes && profileRes.ok) {
-        const data = await profileRes.json();
-        if (data && data.name) {
-          setProfile((prev) => ({ ...prev, ...data }));
-          setIsBackendConnected(true);
-        }
+      const [profileData, highlightsData, projectsData, skillsData, expData, eduData] = await Promise.allSettled([
+        fetchWithTimeout(`${API_BASE_URL}/profile`),
+        fetchWithTimeout(`${API_BASE_URL}/highlights`),
+        fetchWithTimeout(`${API_BASE_URL}/projects`),
+        fetchWithTimeout(`${API_BASE_URL}/skills`),
+        fetchWithTimeout(`${API_BASE_URL}/experiences`),
+        fetchWithTimeout(`${API_BASE_URL}/education`),
+      ]);
+
+      if (profileData.status === "fulfilled" && profileData.value && profileData.value.name) {
+        setProfile((prev) => ({ ...prev, ...profileData.value }));
+        setIsBackendConnected(true);
       }
 
-      // Fetch Projects
-      const projectsRes = await fetch(`${API_BASE_URL}/projects`).catch(() => null);
-      if (projectsRes && projectsRes.ok) {
-        const data = await projectsRes.json();
-        if (Array.isArray(data) && data.length > 0) {
-          setProjects(data);
-          setIsBackendConnected(true);
-        }
+      if (highlightsData.status === "fulfilled" && Array.isArray(highlightsData.value) && highlightsData.value.length > 0) {
+        setAboutHighlights(highlightsData.value);
       }
 
-      // Fetch Skills
-      const skillsRes = await fetch(`${API_BASE_URL}/skills`).catch(() => null);
-      if (skillsRes && skillsRes.ok) {
-        const data = await skillsRes.json();
-        if (Array.isArray(data) && data.length > 0) {
-          setSkills(data);
-          setIsBackendConnected(true);
-        }
+      if (projectsData.status === "fulfilled" && Array.isArray(projectsData.value) && projectsData.value.length > 0) {
+        setProjects(projectsData.value);
+        setIsBackendConnected(true);
       }
 
-      // Fetch Experiences
-      const expRes = await fetch(`${API_BASE_URL}/experiences`).catch(() => null);
-      if (expRes && expRes.ok) {
-        const data = await expRes.json();
-        if (Array.isArray(data) && data.length > 0) {
-          setExperiences(data);
-        }
+      if (skillsData.status === "fulfilled" && Array.isArray(skillsData.value) && skillsData.value.length > 0) {
+        setSkills(skillsData.value);
+        setIsBackendConnected(true);
       }
 
-      // Fetch Education
-      const eduRes = await fetch(`${API_BASE_URL}/education`).catch(() => null);
-      if (eduRes && eduRes.ok) {
-        const data = await eduRes.json();
-        if (Array.isArray(data) && data.length > 0) {
-          setEducation(data);
-        }
+      if (expData.status === "fulfilled" && Array.isArray(expData.value) && expData.value.length > 0) {
+        setExperiences(expData.value);
+      }
+
+      if (eduData.status === "fulfilled" && Array.isArray(eduData.value) && eduData.value.length > 0) {
+        setEducation(eduData.value);
       }
     } catch (err) {
-      console.warn("Backend not available, using default portfolio data", err);
+      console.warn("Backend unavailable or timed out, retaining default portfolio data", err);
     } finally {
       setLoading(false);
     }
@@ -78,6 +88,7 @@ export const PortfolioProvider = ({ children }) => {
     <PortfolioContext.Provider
       value={{
         profile,
+        aboutHighlights,
         projects,
         skills,
         experiences,

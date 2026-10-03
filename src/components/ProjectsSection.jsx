@@ -2,7 +2,7 @@ import { ArrowRight, ExternalLink, Github } from "lucide-react";
 import { usePortfolio } from "../context/PortfolioContext";
 
 export const ProjectsSection = () => {
-  const { projects, formatAssetUrl } = usePortfolio();
+  const { projects, profile, formatAssetUrl } = usePortfolio();
 
   return (
     <section id="projects" data-aos="fade-up" className="py-24 px-4 relative">

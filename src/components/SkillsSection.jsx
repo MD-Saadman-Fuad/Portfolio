@@ -17,6 +17,12 @@ import Firebase from "../assets/techlog/firebase.png";
 import GitHub from "../assets/techlog/github.png";
 import Express from "../assets/techlog/express.png";
 import MongoDB from "../assets/techlog/mongodb.png";
+import PostgresSQL from "../assets/techlog/postgresql.png";
+import TS from "../assets/techlog/typescript.png";
+import NextLogo from "../assets/techlog/nextjs.png";
+import Nest from "../assets/techlog/NestJS.png";
+import Docker from "../assets/techlog/docker.png";
+
 
 const skills = [
   // Frontend
@@ -24,12 +30,15 @@ const skills = [
   { name: "CSS", image: CSS, level: 95, category: "frontend" },
   { name: "JavaScript", image: JS, level: 90, category: "frontend" },
   { name: "React", image: ReactLogo, level: 90, category: "frontend" },
+  { name: "Next.js", image: NextLogo, level: 90, category: "frontend" },
   { name: "Tailwind CSS", image: Tailwind, level: 90, category: "frontend" },
 
 
   // Backend
   { name: "Node.js", image: NodeJS, level: 80, category: "backend" },
+  { name: "TypeScript", image: TS, level: 80, category: "backend" },
   { name: "Express.js", image: Express, level: 75, category: "backend" },
+  { name: "Nest.js", image: Nest, level: 75, category: "backend" },
   { name: "Python", image: Python, level: 85, category: "backend" },
   { name: "C", image: C, level: 85, category: "backend" },
   { name: "C++", image: CPP, level: 85, category: "backend" },
@@ -37,6 +46,7 @@ const skills = [
   // Database
   { name: "MySQL", image: MySQL, level: 90, category: "database" },
   { name: "MongoDB", image: MongoDB, level: 70, category: "database" },
+  { name: "PostgreSQL", image: PostgresSQL, level: 70, category: "database" },
 
   // Tools
   { name: "Git", image: Git, level: 90, category: "tools" },
@@ -44,6 +54,7 @@ const skills = [
   { name: "Figma", image: Figma, level: 85, category: "tools" },
   // { name: "VS Code", image: VSCode, level: 95, category: "tools" },
   { name: "Firebase", image: Firebase, level: 80, category: "tools" },
+  { name: "Docker", image: Docker, level: 80, category: "tools" },
 ];
 
 const categories = ["all", "frontend", "backend", "database", "tools"];

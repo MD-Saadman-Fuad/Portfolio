@@ -1,8 +1,21 @@
-import { Briefcase, Code, User } from "lucide-react";
+import { Briefcase, Code, User, Server, Cpu, Globe, Terminal, Zap, Database, Sparkles } from "lucide-react";
 import { usePortfolio } from "../context/PortfolioContext";
 
+const iconMap = {
+  code: Code,
+  user: User,
+  briefcase: Briefcase,
+  server: Server,
+  cpu: Cpu,
+  globe: Globe,
+  terminal: Terminal,
+  zap: Zap,
+  database: Database,
+  sparkles: Sparkles,
+};
+
 export const AboutSection = () => {
-  const { profile, API_BASE_URL } = usePortfolio();
+  const { profile, aboutHighlights, API_BASE_URL } = usePortfolio();
 
   const getCvUrl = (url) => {
     if (!url) return "#";
@@ -12,6 +25,7 @@ export const AboutSection = () => {
   };
 
   const cvHref = getCvUrl(profile.cvUrl);
+  const sortedHighlights = [...(aboutHighlights || [])].sort((a, b) => (a.order || 0) - (b.order || 0));
 
   return (
     <section id="about" data-aos="fade-up" className="py-24 px-4 relative">
@@ -52,47 +66,24 @@ export const AboutSection = () => {
             </div>
           </div>
 
+          {/* Dynamic Highlight / Focus Cards */}
           <div className="grid grid-cols-1 gap-6">
-            <div className="gradient-border p-6 card-hover">
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <Code className="h-6 w-6 text-primary" />
+            {sortedHighlights.map((hl, key) => {
+              const IconComponent = iconMap[hl.icon?.toLowerCase()] || Code;
+              return (
+                <div key={hl.id || key} className="gradient-border p-6 card-hover">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 rounded-full bg-primary/10 shrink-0">
+                      <IconComponent className="h-6 w-6 text-primary" />
+                    </div>
+                    <div className="text-left">
+                      <h4 className="font-semibold text-lg">{hl.title}</h4>
+                      <p className="text-muted-foreground">{hl.description}</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="text-left">
-                  <h4 className="font-semibold text-lg"> Backend Development</h4>
-                  <p className="text-muted-foreground">
-                    Creating fast and scalable backend systems using Node.js, Express, PostgreSQL, and modern databases.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="gradient-border p-6 card-hover">
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <User className="h-6 w-6 text-primary" />
-                </div>
-                <div className="text-left">
-                  <h4 className="font-semibold text-lg">Frontend Design</h4>
-                  <p className="text-muted-foreground">
-                    Designing intuitive user interfaces and seamless user experiences with React & Tailwind CSS.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="gradient-border p-6 card-hover">
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <Briefcase className="h-6 w-6 text-primary" />
-                </div>
-
-                <div className="text-left">
-                  <h4 className="font-semibold text-lg">Problem Solving</h4>
-                  <p className="text-muted-foreground">
-                    Solving complex problems efficiently with optimized algorithms and robust data structures.
-                  </p>
-                </div>
-              </div>
-            </div>
+              );
+            })}
           </div>
         </div>
       </div>

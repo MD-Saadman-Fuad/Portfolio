@@ -32,6 +32,15 @@ model Profile {
   updatedAt    DateTime @updatedAt
 }
 
+model AboutHighlight {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  icon        String   @default("code") // "code" | "user" | "briefcase" | "server" | "cpu" | "globe"
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+}
+
 model Experience {
   id          String   @id @default(uuid())
   role        String

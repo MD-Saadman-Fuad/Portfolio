@@ -15,6 +15,18 @@ router.get("/profile", async (req, res) => {
   }
 });
 
+// GET About Highlights
+router.get("/highlights", async (req, res) => {
+  try {
+    const highlights = await prisma.aboutHighlight.findMany({
+      orderBy: { order: "asc" },
+    });
+    res.json(highlights);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch highlights", error: error.message });
+  }
+});
+
 // GET Experiences
 router.get("/experiences", async (req, res) => {
   try {

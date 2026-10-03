@@ -66,6 +66,38 @@ router.put("/profile", async (req, res) => {
   }
 });
 
+// ABOUT HIGHLIGHTS CRUD
+router.post("/highlights", async (req, res) => {
+  try {
+    const { id, createdAt, updatedAt, ...data } = req.body;
+    const item = await prisma.aboutHighlight.create({ data });
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to create highlight", error: error.message });
+  }
+});
+
+router.put("/highlights/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { id: _, createdAt, updatedAt, ...data } = req.body;
+    const item = await prisma.aboutHighlight.update({ where: { id }, data });
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to update highlight", error: error.message });
+  }
+});
+
+router.delete("/highlights/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await prisma.aboutHighlight.delete({ where: { id } });
+    res.json({ message: "Highlight deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete highlight", error: error.message });
+  }
+});
+
 // EXPERIENCE CRUD
 router.post("/experiences", async (req, res) => {
   try {

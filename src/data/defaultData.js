@@ -49,6 +49,30 @@ export const defaultProfile = {
   instagramUrl: "https://www.instagram.com/saadman_fuad/"
 };
 
+export const defaultAboutHighlights = [
+  {
+    id: "hl-1",
+    title: "Backend Development",
+    description: "Creating fast and scalable backend systems using Node.js, Express, PostgreSQL, and modern databases.",
+    icon: "code",
+    order: 1,
+  },
+  {
+    id: "hl-2",
+    title: "Frontend Design",
+    description: "Designing intuitive user interfaces and seamless user experiences with React & Tailwind CSS.",
+    icon: "user",
+    order: 2,
+  },
+  {
+    id: "hl-3",
+    title: "Problem Solving",
+    description: "Solving complex problems efficiently with optimized algorithms and robust data structures.",
+    icon: "briefcase",
+    order: 3,
+  },
+];
+
 export const defaultExperiences = [
   {
     id: "exp-1",

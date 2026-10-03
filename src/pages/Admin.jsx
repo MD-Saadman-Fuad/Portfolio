@@ -14,12 +14,13 @@ import {
   Mail, 
   Save, 
   Lock,
-  ArrowLeft
+  ArrowLeft,
+  Sparkles
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const Admin = () => {
-  const { profile, projects, skills, experiences, education, API_BASE_URL, refreshData } = usePortfolio();
+  const { profile, aboutHighlights, projects, skills, experiences, education, API_BASE_URL, refreshData } = usePortfolio();
   const { toast } = useToast();
 
   const [token, setToken] = useState(localStorage.getItem("admin_token") || "");
@@ -60,6 +61,12 @@ export const Admin = () => {
   const [skillImageFile, setSkillImageFile] = useState(null);
   const [isSavingSkill, setIsSavingSkill] = useState(false);
 
+  // About Highlights State & Modal
+  const [highlightList, setHighlightList] = useState(aboutHighlights || []);
+  const [editingHighlight, setEditingHighlight] = useState(null);
+  const [highlightForm, setHighlightForm] = useState({ title: "", description: "", icon: "code", order: 1 });
+  const [isSavingHighlight, setIsSavingHighlight] = useState(false);
+
   // Messages State
   const [messages, setMessages] = useState([]);
   const [loadingMessages, setLoadingMessages] = useState(false);
@@ -69,6 +76,7 @@ export const Admin = () => {
   useEffect(() => { setEduList(education); }, [education]);
   useEffect(() => { setProjectList(projects); }, [projects]);
   useEffect(() => { setSkillList(skills); }, [skills]);
+  useEffect(() => { setHighlightList(aboutHighlights || []); }, [aboutHighlights]);
 
   const fetchMessages = async () => {
     if (!token) return;
@@ -378,6 +386,55 @@ export const Admin = () => {
     refreshData();
   };
 
+  // About Highlight Save & Delete
+  const handleSaveHighlight = async (e) => {
+    e.preventDefault();
+    setIsSavingHighlight(true);
+
+    try {
+      const payload = {
+        ...highlightForm,
+        order: Number(highlightForm.order) || 0,
+      };
+
+      const url = editingHighlight?.id ? `${API_BASE_URL}/admin/highlights/${editingHighlight.id}` : `${API_BASE_URL}/admin/highlights`;
+      const method = editingHighlight?.id ? "PUT" : "POST";
+
+      const res = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify(payload),
+      }).catch(() => null);
+
+      if (res && res.ok) {
+        toast({ title: "Saved", description: "About focus card saved!" });
+      } else {
+        if (editingHighlight?.id) {
+          setHighlightList(highlightList.map((h) => (h.id === editingHighlight.id ? { ...payload, id: h.id } : h)));
+        } else {
+          setHighlightList([...highlightList, { ...payload, id: Date.now().toString() }]);
+        }
+        toast({ title: "Saved locally", description: "Focus card list updated." });
+      }
+
+      setEditingHighlight(null);
+      setHighlightForm({ title: "", description: "", icon: "code", order: highlightList.length + 1 });
+      refreshData();
+    } catch (err) {
+      toast({ title: "Error", description: err.message, variant: "destructive" });
+    } finally {
+      setIsSavingHighlight(false);
+    }
+  };
+
+  const handleDeleteHighlight = async (id) => {
+    if (!confirm("Delete this focus card highlight?")) return;
+    await fetch(`${API_BASE_URL}/admin/highlights/${id}`, { method: "DELETE", headers: { Authorization: `Bearer ${token}` } }).catch(() => null);
+    setHighlightList(highlightList.filter((h) => h.id !== id));
+    toast({ title: "Deleted", description: "Focus card removed." });
+    refreshData();
+  };
+
   if (!token) {
     return (
       <div className="min-h-screen bg-background text-foreground flex items-center justify-center px-4">
@@ -461,6 +518,9 @@ export const Admin = () => {
           <button onClick={() => setActiveTab("profile")} className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-sm font-medium transition-colors ${activeTab === "profile" ? "bg-primary text-primary-foreground" : "hover:bg-secondary text-foreground/80"}`}>
             <FileText size={18} /> Profile & Resume
           </button>
+          <button onClick={() => setActiveTab("about")} className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-sm font-medium transition-colors ${activeTab === "about" ? "bg-primary text-primary-foreground" : "hover:bg-secondary text-foreground/80"}`}>
+            <Sparkles size={18} /> About Focus Cards ({highlightList.length})
+          </button>
           <button onClick={() => setActiveTab("experiences")} className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-sm font-medium transition-colors ${activeTab === "experiences" ? "bg-primary text-primary-foreground" : "hover:bg-secondary text-foreground/80"}`}>
             <Briefcase size={18} /> Work Experience ({expList.length})
           </button>
@@ -511,6 +571,24 @@ export const Admin = () => {
                 <textarea rows={2} value={profileForm.tagline || ""} onChange={(e) => setProfileForm({ ...profileForm, tagline: e.target.value })} className="w-full px-3 py-2 rounded border border-input bg-background text-sm" />
               </div>
 
+              <div className="space-y-3 p-4 bg-secondary/20 rounded-lg border border-border">
+                <h4 className="text-sm font-semibold text-primary">About Section Text</h4>
+                <div>
+                  <label className="block text-xs font-semibold mb-1">About Section Heading Title</label>
+                  <input type="text" value={profileForm.aboutTitle || ""} onChange={(e) => setProfileForm({ ...profileForm, aboutTitle: e.target.value })} className="w-full px-3 py-2 rounded border border-input bg-background text-sm" placeholder="Passionate Software Developer & Tech Enthusiast" />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold mb-1">About Bio Paragraph 1</label>
+                  <textarea rows={2} value={profileForm.aboutBio1 || ""} onChange={(e) => setProfileForm({ ...profileForm, aboutBio1: e.target.value })} className="w-full px-3 py-2 rounded border border-input bg-background text-sm" />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold mb-1">About Bio Paragraph 2</label>
+                  <textarea rows={2} value={profileForm.aboutBio2 || ""} onChange={(e) => setProfileForm({ ...profileForm, aboutBio2: e.target.value })} className="w-full px-3 py-2 rounded border border-input bg-background text-sm" />
+                </div>
+              </div>
+
               {/* Upload CV */}
               <div className="p-4 border border-dashed border-border rounded-lg bg-secondary/20">
                 <h4 className="text-sm font-semibold mb-2 flex items-center gap-2"><Upload size={16} /> Resume / CV PDF File</h4>
@@ -542,6 +620,97 @@ export const Admin = () => {
                 <Save size={16} /> {isSavingProfile ? "Saving..." : "Save Profile"}
               </button>
             </form>
+          )}
+
+          {/* TAB: About Focus Cards */}
+          {activeTab === "about" && (
+            <div className="space-y-6">
+              <div className="flex items-center justify-between border-b border-border pb-4">
+                <div>
+                  <h3 className="text-xl font-bold">About Section Focus Cards</h3>
+                  <p className="text-sm text-muted-foreground">Manage highlight cards displayed in your About Me section.</p>
+                </div>
+                {!editingHighlight && (
+                  <button onClick={() => { setEditingHighlight({}); setHighlightForm({ title: "", description: "", icon: "code", order: highlightList.length + 1 }); }} className="cosmic-button flex items-center gap-1 text-xs px-3 py-2">
+                    <Plus size={16} /> Add Focus Card
+                  </button>
+                )}
+              </div>
+
+              {editingHighlight !== null && (
+                <form onSubmit={handleSaveHighlight} className="p-4 bg-secondary/30 rounded-lg space-y-4 mb-6">
+                  <h4 className="font-semibold text-sm">{editingHighlight.id ? "Edit Focus Card" : "Add New Focus Card"}</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div>
+                      <label className="block text-xs font-medium mb-1">Title</label>
+                      <input type="text" required value={highlightForm.title} onChange={(e) => setHighlightForm({ ...highlightForm, title: e.target.value })} className="w-full px-3 py-1.5 rounded border border-input bg-background text-xs" placeholder="Backend Development" />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium mb-1">Icon</label>
+                      <select value={highlightForm.icon} onChange={(e) => setHighlightForm({ ...highlightForm, icon: e.target.value })} className="w-full px-3 py-1.5 rounded border border-input bg-background text-xs capitalize">
+                        <option value="code">Code</option>
+                        <option value="user">User</option>
+                        <option value="briefcase">Briefcase</option>
+                        <option value="server">Server</option>
+                        <option value="cpu">Cpu</option>
+                        <option value="globe">Globe</option>
+                        <option value="terminal">Terminal</option>
+                        <option value="zap">Zap</option>
+                        <option value="database">Database</option>
+                        <option value="sparkles">Sparkles</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium mb-1">Sequence Order (#)</label>
+                      <input type="number" value={highlightForm.order ?? 0} onChange={(e) => setHighlightForm({ ...highlightForm, order: parseInt(e.target.value) || 0 })} className="w-full px-3 py-1.5 rounded border border-input bg-background text-xs" placeholder="1, 2, 3..." />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium mb-1">Description</label>
+                    <textarea rows={2} required value={highlightForm.description} onChange={(e) => setHighlightForm({ ...highlightForm, description: e.target.value })} className="w-full px-3 py-1.5 rounded border border-input bg-background text-xs" placeholder="Building scalable APIs and microservices..." />
+                  </div>
+                  <div className="flex gap-2 pt-2">
+                    <button type="submit" disabled={isSavingHighlight} className="cosmic-button text-xs px-4 py-1.5">{isSavingHighlight ? "Saving..." : "Save Focus Card"}</button>
+                    <button type="button" onClick={() => setEditingHighlight(null)} className="px-4 py-1.5 rounded border border-border text-xs">Cancel</button>
+                  </div>
+                </form>
+              )}
+
+              <div className="grid grid-cols-1 gap-3">
+                {[...highlightList].sort((a, b) => (a.order || 0) - (b.order || 0)).map((hl) => (
+                  <div key={hl.id} className="flex items-center justify-between p-4 border border-border rounded-lg bg-background">
+                    <div className="flex items-center gap-4">
+                      <div className="p-2 rounded bg-primary/10 text-primary font-bold text-xs uppercase px-3 py-1">
+                        {hl.icon || "code"}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-sm flex items-center gap-2">{hl.title} <span className="text-xs text-muted-foreground font-normal">#{hl.order || 0}</span></h4>
+                        <p className="text-xs text-muted-foreground">{hl.description}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => {
+                          setEditingHighlight(hl);
+                          setHighlightForm({ title: hl.title, description: hl.description, icon: hl.icon || "code", order: hl.order || 0 });
+                        }}
+                        className="p-1.5 text-primary hover:bg-primary/10 rounded"
+                        title="Edit Focus Card"
+                      >
+                        <Edit size={16} />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteHighlight(hl.id)}
+                        className="p-1.5 text-destructive hover:bg-destructive/10 rounded"
+                        title="Delete Focus Card"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
 
           {/* TAB: Work Experiences */}

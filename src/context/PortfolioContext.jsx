@@ -9,6 +9,25 @@ if (!rawApiUrl || rawApiUrl.includes("your-portfolio-backend.onrender.com")) {
 }
 const API_BASE_URL = rawApiUrl.replace(/\/+$/, "");
 
+export const formatAssetUrl = (url, customApiUrl = API_BASE_URL) => {
+  if (!url) return "";
+  const backendBase = customApiUrl ? customApiUrl.replace(/\/+api\/?$/, "") : "https://portfolio-backend-qo0u.onrender.com";
+
+  if (url.includes("localhost:5000")) {
+    return url.replace(/http:\/\/localhost:5000/g, backendBase);
+  }
+
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    return url;
+  }
+
+  if (url.startsWith("/uploads/")) {
+    return `${backendBase}${url}`;
+  }
+
+  return url;
+};
+
 // Helper for fetch with timeout (e.g. 5000ms abort for sleeping backends)
 const fetchWithTimeout = async (url, timeoutMs = 5000) => {
   const controller = new AbortController();
@@ -96,6 +115,7 @@ export const PortfolioProvider = ({ children }) => {
         loading,
         isBackendConnected,
         refreshData: fetchPortfolioData,
+        formatAssetUrl: (url) => formatAssetUrl(url, API_BASE_URL),
         API_BASE_URL,
       }}
     >

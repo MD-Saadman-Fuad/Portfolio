@@ -20,7 +20,7 @@ import {
 import { Link } from "react-router-dom";
 
 export const Admin = () => {
-  const { profile, aboutHighlights, projects, skills, experiences, education, API_BASE_URL, refreshData } = usePortfolio();
+  const { profile, aboutHighlights, projects, skills, experiences, education, API_BASE_URL, refreshData, formatAssetUrl } = usePortfolio();
   const { toast } = useToast();
 
   const [token, setToken] = useState(localStorage.getItem("admin_token") || "");
@@ -596,13 +596,7 @@ export const Admin = () => {
                   Current CV URL:{" "}
                   {profileForm.cvUrl ? (
                     <a
-                      href={
-                        profileForm.cvUrl.startsWith("http://") || profileForm.cvUrl.startsWith("https://")
-                          ? profileForm.cvUrl
-                          : profileForm.cvUrl.startsWith("/uploads/")
-                          ? `${API_BASE_URL.replace("/api", "")}${profileForm.cvUrl}`
-                          : profileForm.cvUrl
-                      }
+                      href={formatAssetUrl(profileForm.cvUrl)}
                       target="_blank"
                       rel="noreferrer"
                       className="text-primary underline font-medium"
@@ -900,7 +894,7 @@ export const Admin = () => {
                 {projectList.map((project) => (
                   <div key={project.id} className="flex items-center justify-between p-4 border border-border rounded-lg bg-background">
                     <div className="flex items-center gap-4">
-                      <img src={project.image} alt={project.title} className="w-16 h-12 object-cover rounded" />
+                      <img src={formatAssetUrl(project.image)} alt={project.title} className="w-16 h-12 object-cover rounded" />
                       <div>
                         <h4 className="font-bold text-sm">{project.title}</h4>
                         <p className="text-xs text-muted-foreground line-clamp-1">{project.description}</p>
@@ -968,7 +962,7 @@ export const Admin = () => {
                 {[...skillList].sort((a, b) => (a.order || 0) - (b.order || 0)).map((skill) => (
                   <div key={skill.id} className="flex items-center justify-between p-3 border border-border rounded-lg bg-background">
                     <div className="flex items-center gap-3">
-                      <img src={skill.image} alt={skill.name} className="w-8 h-8 object-contain" />
+                      <img src={formatAssetUrl(skill.image)} alt={skill.name} className="w-8 h-8 object-contain" />
                       <div>
                         <h4 className="font-semibold text-xs">{skill.name}</h4>
                         <span className="text-[10px] text-muted-foreground capitalize">{skill.category} • #{skill.order || 0}</span>

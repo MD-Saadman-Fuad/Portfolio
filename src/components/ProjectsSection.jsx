@@ -2,7 +2,7 @@ import { ArrowRight, ExternalLink, Github } from "lucide-react";
 import { usePortfolio } from "../context/PortfolioContext";
 
 export const ProjectsSection = () => {
-  const { projects, profile } = usePortfolio();
+  const { projects, formatAssetUrl } = usePortfolio();
 
   return (
     <section id="projects" data-aos="fade-up" className="py-24 px-4 relative">
@@ -25,7 +25,7 @@ export const ProjectsSection = () => {
               <div>
                 <div className="h-48 overflow-hidden">
                   <img
-                    src={project.image}
+                    src={formatAssetUrl(project.image)}
                     alt={project.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />

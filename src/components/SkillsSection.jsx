@@ -6,15 +6,13 @@ import { usePortfolio } from "../context/PortfolioContext";
 const categories = ["all", "frontend", "backend", "database", "tools"];
 
 export const SkillsSection = () => {
-  const { skills, API_BASE_URL } = usePortfolio();
+  const { skills, formatAssetUrl } = usePortfolio();
   const [activeCategory, setActiveCategory] = useState("all");
 
   const getSkillImage = (image) => {
     if (!image) return "";
     if (typeof image === "object" && image.default) return image.default;
-    if (image.startsWith("http://") || image.startsWith("https://")) return image;
-    if (image.startsWith("/uploads/")) return `${API_BASE_URL.replace("/api", "")}${image}`;
-    return image;
+    return formatAssetUrl(image);
   };
 
   const sortedSkills = [...skills].sort((a, b) => (a.order || 0) - (b.order || 0));

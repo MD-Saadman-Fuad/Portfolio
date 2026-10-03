@@ -15,16 +15,9 @@ const iconMap = {
 };
 
 export const AboutSection = () => {
-  const { profile, aboutHighlights, API_BASE_URL } = usePortfolio();
+  const { profile, aboutHighlights, formatAssetUrl } = usePortfolio();
 
-  const getCvUrl = (url) => {
-    if (!url) return "#";
-    if (url.startsWith("http://") || url.startsWith("https://")) return url;
-    if (url.startsWith("/uploads/")) return `${API_BASE_URL.replace("/api", "")}${url}`;
-    return url;
-  };
-
-  const cvHref = getCvUrl(profile.cvUrl);
+  const cvHref = formatAssetUrl(profile.cvUrl) || "#";
   const sortedHighlights = [...(aboutHighlights || [])].sort((a, b) => (a.order || 0) - (b.order || 0));
 
   return (

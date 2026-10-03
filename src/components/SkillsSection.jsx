@@ -30,12 +30,13 @@ const skills = [
   // Backend
   { name: "Node.js", image: NodeJS, level: 80, category: "backend" },
   { name: "Express.js", image: Express, level: 75, category: "backend" },
-  { name: "MongoDB", image: MongoDB, level: 70, category: "backend" },
-  { name: "MySQL", image: MySQL, level: 90, category: "backend" },
   { name: "Python", image: Python, level: 85, category: "backend" },
   { name: "C", image: C, level: 85, category: "backend" },
   { name: "C++", image: CPP, level: 85, category: "backend" },
 
+  // Database
+  { name: "MySQL", image: MySQL, level: 90, category: "database" },
+  { name: "MongoDB", image: MongoDB, level: 70, category: "database" },
 
   // Tools
   { name: "Git", image: Git, level: 90, category: "tools" },
@@ -45,7 +46,7 @@ const skills = [
   { name: "Firebase", image: Firebase, level: 80, category: "tools" },
 ];
 
-const categories = ["all", "frontend", "backend", "tools"];
+const categories = ["all", "frontend", "backend", "database", "tools"];
 
 export const SkillsSection = () => {
   const [activeCategory, setActiveCategory] = useState("all");

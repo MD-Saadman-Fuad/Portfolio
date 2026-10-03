@@ -17,41 +17,41 @@ const defaultExperiences = [
     ],
     projects: [
       {
-        name: "Enterprise ERP & Multi-Branch POS System",
+        name: "TuitionChai",
         description: "Centralized ERP platform managing real-time inventory across multiple branch locations, automated barcode POS invoicing, financial ledger tracking, and stock auditing.",
-        link: null, // Set to live website URL if available (e.g., "https://sakpantradex.com")
+        link: "https://www.tuitionchai.com", // Set to live website URL if available (e.g., "https://sakpantradex.com")
         isPrivate: true,
         technologies: ["Next.js", "TypeScript", "NestJS", "PostgreSQL", "Tailwind CSS"],
       },
-      {
-        name: "Export-Import Trade & CRM Engine",
-        description: "Supply chain tracking engine managing international shipment documentation, Letter of Credit (LC) status, customs clearance, and automated client notifications.",
-        link: null,
-        isPrivate: true,
-        technologies: ["TypeScript", "NestJS", "PostgreSQL", "Prisma"],
-      },
+      // {
+      //   name: "Export-Import Trade & CRM Engine",
+      //   description: "Supply chain tracking engine managing international shipment documentation, Letter of Credit (LC) status, customs clearance, and automated client notifications.",
+      //   link: null,
+      //   isPrivate: true,
+      //   technologies: ["TypeScript", "NestJS", "PostgreSQL", "Prisma"],
+      // },
     ],
   },
-  {
-    id: "exp-2",
-    role: "Computer Science Undergraduate Assistant",
-    company: "BRAC University",
-    location: "Dhaka, Bangladesh",
-    period: "2024 - 2025",
-    responsibilities: [
-      "Assisted fellow students in mastering Data Structures, Algorithms, Object-Oriented Programming (C++/Python), and web development projects.",
-      "Conducted weekly problem-solving lab sessions and code reviews for 100+ undergraduate computer science students.",
-    ],
-    projects: [
-      {
-        name: "Student Lab Feedback & Grading Helper Tool",
-        description: "Developed helper automation scripts and grading evaluation tools to provide instant feedback on student coding assignments.",
-        link: "https://github.com/MD-Saadman-Fuad",
-        isPrivate: false,
-        technologies: ["Python", "C++", "Git", "GitHub"],
-      },
-    ],
-  },
+  // {
+  //   id: "exp-2",
+  //   role: "Computer Science Undergraduate Assistant",
+  //   company: "BRAC University",
+  //   location: "Dhaka, Bangladesh",
+  //   period: "2024 - 2025",
+  //   responsibilities: [
+  //     "Assisted fellow students in mastering Data Structures, Algorithms, Object-Oriented Programming (C++/Python), and web development projects.",
+  //     "Conducted weekly problem-solving lab sessions and code reviews for 100+ undergraduate computer science students.",
+  //   ],
+  //   projects: [
+  //     {
+  //       name: "Student Lab Feedback & Grading Helper Tool",
+  //       description: "Developed helper automation scripts and grading evaluation tools to provide instant feedback on student coding assignments.",
+  //       link: "https://github.com/MD-Saadman-Fuad",
+  //       isPrivate: false,
+  //       technologies: ["Python", "C++", "Git", "GitHub"],
+  //     },
+  //   ],
+  // },
 ];
 
 const defaultEducation = [

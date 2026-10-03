@@ -16,25 +16,10 @@ const PORT = process.env.PORT || 5000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Enable CORS for Netlify, Vercel, and local development
-const allowedOrigins = process.env.CLIENT_URL
-  ? process.env.CLIENT_URL.split(",").map((url) => url.trim().replace(/\/+$/, ""))
-  : ["*"];
-
+// Enable CORS for Netlify, custom domains (saadmanfuad.me), and local development
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true);
-      const cleanOrigin = origin.replace(/\/+$/, "");
-      if (
-        allowedOrigins.includes("*") ||
-        allowedOrigins.includes(cleanOrigin) ||
-        cleanOrigin.endsWith(".netlify.app")
-      ) {
-        return callback(null, true);
-      }
-      return callback(null, true);
-    },
+    origin: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
